@@ -5,14 +5,14 @@ const checkAuth = async (req,res,next) =>{
     try {
         const token = req.headers.authorization.split(' ').pop();
         const tokenData = await verifyToken(token);
-        console.log("TOKEN: " + token)
-        const existeUsuario = await usuarioServices.validacionExisteUsuario(tokenData.usuario_id);
+        console.log("TOKEN: " + tokenData.nombre_usuario)
+        const existeUsuario = await usuarioServices.validacionUsuarioId(tokenData.id_usuario);
         if (!existeUsuario) {
             return res.status(401).json({
                 msg: 'Token no valido - usuario no existe en la BD'
             });
         }        
-        if(tokenData.correo_electronico){
+        if(tokenData.nombre_usuario){
             /*
                 Guardo la informacion del usuario por si necesito hacer otra validacion a un middleware, de esta manera
                 ya se quien es el usuario que esta con ese token.

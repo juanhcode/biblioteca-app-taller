@@ -1,16 +1,14 @@
 const jwt = require('jsonwebtoken');
-const rolServices = require('../services/rol.service');
 require('dotenv').config();
 
 const tokenSign = async (usuario)=>{
-    const {usuario_id, correo_electronico, nombre_usuario, rol_id, foto} = usuario;
+    const {id_usuario, nombre_usuario, rol_id} = usuario;
+    console.log(nombre_usuario);
     return jwt.sign(
         {
-            usuario_id,
+            id_usuario,
             rol_id,
-            nombre: nombre_usuario,
-            correo_electronico,
-            foto
+            nombre_usuario: nombre_usuario,
         },
         process.env.JWT_SECRET,
         {

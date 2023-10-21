@@ -6,7 +6,11 @@ const createBook = async (newBook) => {
 }
 
 const deleteBook = async (id) => {
-    const bookDeleted = await book.destroy();
+    const bookDeleted = await Libro.destroy({
+        where: {
+            id_libro: id
+        }
+    });
     return bookDeleted;
 }
 

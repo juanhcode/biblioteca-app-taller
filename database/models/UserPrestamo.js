@@ -39,4 +39,5 @@ const UserPrestamo = db.define('usuario_prestamo',{
 
 UserPrestamo.belongsTo(User,{foreignKey: 'id_usuario'});
 UserPrestamo.belongsTo(Libro,{foreignKey: 'id_libro'});
-module.exports= User
+
+module.exports= UserPrestamo

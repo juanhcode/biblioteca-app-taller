@@ -4,10 +4,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const libros = require('./v1/routes/libro.route')
-
-
+const libros = require('./v1/routes/libro.route');
 const users = require('./v1/routes/usuario.route');
+const auth = require('./v1/routes/auth.route')
 
 
 
@@ -17,8 +16,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use('/v1/libro', libros)
-
 app.use('/v1/user',users)
+app.use('/v1/login', auth)
+
 
 async function main() {
     try {

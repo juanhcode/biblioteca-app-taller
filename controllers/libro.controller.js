@@ -34,7 +34,7 @@ const deleteBook = async (req, res) => {
     
     await libroServices.deleteBook(id);
     res.json({
-        msg: `Rol con el id ${id} ha sido eliminado.`
+        msg: `Libro con el id ${id} ha sido eliminado.`
     });
 }
 
