@@ -4,12 +4,15 @@ const cors = require('cors');
 const morgan = require('morgan');
 require('dotenv').config();
 
+const libros = require('./v1/routes/libro.route')
+
 
 app.use(express.json());
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.use('/v1/libro', libros)
 
 
 async function main() {
