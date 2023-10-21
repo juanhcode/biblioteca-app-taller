@@ -5,12 +5,17 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 
+const users = require('./v1/routes/usuario.route');
+
+
+
 app.use(express.json());
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
 
+app.use('/v1/user',users)
 
 async function main() {
     try {
