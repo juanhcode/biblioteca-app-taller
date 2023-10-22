@@ -1,6 +1,8 @@
 const app = require('../index');
 const request = require('supertest');
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJub21icmVfdXN1YXJpbyI6InVzdWFyaW8yIiwiaWF0IjoxNjk3OTQ4NDIxLCJleHAiOjE2OTc5NzAwMjF9.Ui0U-x-j-9KluJHwP5B1MPzTslW3_Jm_WCe50-LYAGU'
+require('dotenv').config();
+const token = process.env.TOKEN_TEST
+
 describe('Pruebas para agregar y eliminar libros', () => {
     it('Debería agregar un libro', async () => {
         const response = await request(app)
