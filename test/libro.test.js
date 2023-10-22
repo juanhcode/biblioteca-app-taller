@@ -1,0 +1,20 @@
+const app = require('../index');
+const request = require('supertest');
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJub21icmVfdXN1YXJpbyI6InVzdWFyaW8yIiwiaWF0IjoxNjk3OTQ4NDIxLCJleHAiOjE2OTc5NzAwMjF9.Ui0U-x-j-9KluJHwP5B1MPzTslW3_Jm_WCe50-LYAGU'
+describe('Pruebas para agregar y eliminar libros', () => {
+    it('Debería agregar un libro', async () => {
+        const response = await request(app)
+            .post('/v1/libro')
+            .set('Authorization', `Bearer ${token}`)
+            .send({titulo:"Libro 2",autor:"Juan Hoyossss Contreras"});
+        expect(response.status).toBe(200);
+    });
+    it('Debería eliminar un libro', async () => {
+        const id = 47;
+        const response = await request(app)
+            .delete(`/v1/libro/${id}`)
+            .set('Authorization', `Bearer ${token}`)
+        expect(response.status).toBe(200);
+        expect(response.body.msg).toBe(`Libro con el id ${id} ha sido eliminado.`);
+    });
+});

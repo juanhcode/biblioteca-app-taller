@@ -11,10 +11,9 @@ const createBook = async(req, res) => {
             });
         }
         const createBook = await libroServices.createBook(body);
-        res.json(createBook);
+        res.status(200).json(createBook);
         
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             msg: 'Error en el servidor, hable con el administrador'
         })

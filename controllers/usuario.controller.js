@@ -16,20 +16,38 @@ const buscarLibros = async (req, res) => {
 }
 
 const prestarLibro = async (req, res) => {
-    const { libroId, usuarioId } = req.body;
+    const { libroId, usuarioId, fechaDevolucion } = req.body;
     const data = {
         libroId,
         usuarioId,
+        fechaDevolucion
     }
     const resultado = await usuarioService.prestarLibro(data);
-    try {     
-        res.status(200).json(resultado);
+    console.log(resultado);
+    try {
+        res.status(resultado?.code).json(resultado);
     } catch (error) {
-        res.status(500).json({ error: 'Error al prestar el libro' });
+        res.status(resultado?.code).json(resultado);
+    }
+}
+
+const devolverLibro = async (req, res) => {
+    const { libroId, usuarioId } = req.body;
+    const data ={
+        libroId,
+        usuarioId
+    }
+
+    try {
+        const resultado = await usuarioService.devolverLibro(data);
+        res.status(resultado.code).json(resultado);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al devolver el libro' });
     }
 }
 
 module.exports = {
     buscarLibros,
-    prestarLibro
+    prestarLibro,
+    devolverLibro
 }
