@@ -1,5 +1,6 @@
 const app = require('../index');
 const request = require('supertest');
+require('dotenv').config();
 const token = process.env.TOKEN_TEST
 
 describe('Pruebas para agregar y eliminar libros', () => {

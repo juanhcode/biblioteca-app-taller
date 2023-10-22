@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../index'); // Asegúrate de importar tu aplicación Express desde el archivo adecuado
+require('dotenv').config();
 const token = process.env.TOKEN_TEST
 
 describe('Endpoint de Prestar Libro', () => {
