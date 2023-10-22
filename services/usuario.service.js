@@ -1,47 +1,96 @@
 const Libro = require('../database/models/Libro');
-const Usuario = require('../database/models/User');
+const UsuarioPrestamo = require('../database/models/UserPrestamo')
 
-const buscarLibro = async (data)=>{
-    const {author,titulo} = data;
+const buscarLibro = async (data) => {
+    const { autor, titulo } = data;
     try {
         let libros;
-        if(titulo && author){
+        if (titulo && autor) {
             libros = await Libro.findAll({
-                where:{
+                where: {
                     titulo,
-                    autor:author,
+                    autor,
                 },
             });
-        }else if(titulo){
+        } else if (titulo) {
             libros = await Libro.findAll({
-                where:{
+                where: {
                     titulo,
                 },
             })
-        }else if(author){
+        } else if (autor) {
             libros = await Libro.findAll({
-                where:{
-                    autor:author,
+                where: {
+                    autor,
                 },
             })
-        }else{
+        } else {
             return {
-                message:'Debes proporcionar al menos un parámetro de búsqueda (titulo o autor)',
-                code:400
+                message: 'Debes proporcionar al menos un parámetro de búsqueda (titulo o autor)',
+                code: 400
+            }
+        }
+        if (libros.length == 0) {
+            return {
+                message: 'Error al buscar libros',
+                code: 500
             }
         }
         return {
-            libro:libros,
-            code:200
+            libro: libros,
+            code: 200
         }
     } catch (error) {
         return {
-            message:'Error al buscar libros',
-            code:500
+            message: 'Error al buscar libros',
+            code: 500
         }
     }
 }
 
-module.exports={
+const prestarLibro = async (data) => {
+    const { libroId, usuarioId } = data;
+    /*
+    const prestamoExistente = await UsuarioPrestamo.findOne({
+        where: {
+            id_libro: libroId,
+            devuelto: false
+        }
+    })*/
+    console.log(prestamoExistente);
+    
+    return { message:"Hola"}
+
+    /*
+    
+    try {
+        const prestamoExistente = await UsuarioPrestamo.findOne({
+            where: {
+                id_libro: libroId,
+                devuelto: false
+            }
+        })
+
+        if (!prestamoExistente) {
+            return {
+                message: 'El libro no está disponible para préstamo',
+                code: 400
+            }
+        }   // Registra el préstamo en la tabla de UserPrestamo
+        await UserPrestamo.create({
+            fecha_prestamo: new Date(),
+            devuelto: false,
+            id_usuario: usuarioId,
+            id_libro: libroId,
+        });
+        return { message: 'El libro se ha prestado exitosamente', code: 200 };
+    } catch (error) {
+        return { message: 'Error al prestar el libro', code: 500 };
+    }
+    */
+}
+
+module.exports = {
     buscarLibro,
+    prestarLibro
 }
