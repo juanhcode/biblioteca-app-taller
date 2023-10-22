@@ -9,7 +9,10 @@ const Rol = db.define('rol', {
     },
     nombre_rol:{
         type: DataTypes.STRING
-    }
+    },
+}, {
+    timestamps:false,
+    freezeTableName: true
 });
 
 module.exports = Rol;

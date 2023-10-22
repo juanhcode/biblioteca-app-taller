@@ -15,6 +15,9 @@ const Libro = db.define('libro', {
         type: DataTypes.STRING,
         allowNull: false
     }
+}, {
+    timestamps: false,
+    freezeTableName: true
 });
 
 module.exports = Libro
