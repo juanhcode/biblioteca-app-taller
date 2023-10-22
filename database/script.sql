@@ -5,7 +5,8 @@ CREATE TABLE rol (
 
 CREATE TABLE libro (
     id_libro SERIAL PRIMARY KEY NOT NULL,
-    titulo VARCHAR(50) NOT NULL
+    titulo VARCHAR(50) NOT NULL,
+    autor VARCHAR(50) NOT NULL,
 );
 
 CREATE TABLE usuario (

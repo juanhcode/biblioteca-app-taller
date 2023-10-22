@@ -39,5 +39,5 @@ Usuario.prototype.toJson = function () {
 
 
 
-User.belongsTo(Rol, { foreignKey: 'id_rol' });
-module.exports = User
+Usuario.belongsTo(Rol, { foreignKey: 'id_rol' });
+module.exports = Usuario
