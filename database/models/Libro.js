@@ -14,7 +14,8 @@ const Libro = db.define('libro', {
     autor: {
         type: DataTypes.STRING,
         allowNull: false
-    }},
+    }
+},
     {
         timestamps: false,
         freezeTableName: true,

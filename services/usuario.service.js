@@ -1,5 +1,6 @@
 const Libro = require('../database/models/Libro');
 const UsuarioPrestamo = require('../database/models/UserPrestamo')
+const Usuario = require('../database/models/Usuario');
 
 const buscarLibro = async (data) => {
     const { autor, titulo } = data;
@@ -48,6 +49,7 @@ const buscarLibro = async (data) => {
     }
 }
 
+
 const prestarLibro = async (data) => {
     const { libroId, usuarioId } = data;
     /*
@@ -90,7 +92,24 @@ const prestarLibro = async (data) => {
     */
 }
 
+const validacionNombreUsuario = async (nombreUsuario) => {
+    const existeNombreUsuario = await Usuario.findOne({
+        where:{
+            nombre_usuario: nombreUsuario
+        }
+    })
+    return existeNombreUsuario;
+}
+
+const validacionUsuarioId = async (id) => {
+    const existeUsuarioId = await Usuario.findByPk(id)
+    return existeUsuarioId;
+}
+
 module.exports = {
     buscarLibro,
-    prestarLibro
+    prestarLibro,
+    validacionNombreUsuario,
+    validacionUsuarioId
 }
+
