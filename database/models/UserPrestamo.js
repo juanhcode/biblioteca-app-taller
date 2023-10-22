@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../connection');
-const User = require('../models/Usuario');
-const Libro = require('../models/Libro');
+const User = require('./Usuario');
+const Libro = require('./Libro');
 const UserPrestamo = db.define('usuario_prestamo',{
     id_prestamo:{
         type:DataTypes.INTEGER,
