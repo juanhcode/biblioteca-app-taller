@@ -14,7 +14,6 @@ const createBook = async(req, res) => {
         res.status(200).json(createBook);
         
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             msg: 'Error en el servidor, hable con el administrador'
         })
