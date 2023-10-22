@@ -102,17 +102,24 @@ const validacionUsuarioId = async (id) => {
 
 const devolverLibro = async (data) => {
     const { libroId, usuarioId } = data;
+    if (!libroId) {
+        return { message: 'Se requiere el ID del libro para la devolución', code: 400 };
+    }
+
+    if (!usuarioId) {
+        return { message: 'Se requiere el ID del usuario para la devolución', code: 400 };
+    }
+
     try {
 
-        const libro = await UsuarioPrestamo.findOne({ where: { id_libro: libroId, id_usuario:usuarioId, devuelto: true } });
-        console.log(libro);
-        /*
-        if (libro) {
+        const libroPrestado = await UsuarioPrestamo.findOne({ where: { id_libro: libroId, id_usuario: usuarioId, devuelto: false } });
+        if (!libroPrestado) {
             return { message: 'El libro no puede ser devuelto (no está prestado por este usuario)', code: 400 };
-        }*/
-
-        const estaDevuelto = await UsuarioPrestamo.destroy({id_usuario:usuarioId});
-        console.log("AAAAAAAAAA" + estaDevuelto);
+        }
+        await UsuarioPrestamo.update(
+            { devuelto: true },
+            { where: { id_libro: libroId, id_usuario: usuarioId } }
+        );
         return { message: 'El libro se ha devuelto exitosamente', code: 200 };
     } catch (error) {
         return { message: 'Error al devolver el libro', code: 500 };

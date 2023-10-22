@@ -40,7 +40,7 @@ const devolverLibro = async (req, res) => {
 
     try {
         const resultado = await usuarioService.devolverLibro(data);
-        res.status(200).json(resultado);
+        res.status(resultado.code).json(resultado);
     } catch (error) {
         res.status(500).json({ error: 'Error al devolver el libro' });
     }
