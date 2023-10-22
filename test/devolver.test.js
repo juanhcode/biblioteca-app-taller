@@ -1,10 +1,11 @@
 const request = require('supertest');
 const app = require('../index');
-
+require('dotenv').config();
 describe('Endpoint de Devolver Libro', () => {
     it('debería devolver un libro con éxito', async () => {
         const response = await request(app)
             .post('/v1/user/devolver-libro')
+            .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`)
             .send({ libroId: 20, usuarioId: 1 });
 
         expect(response.status).toBe(200);
@@ -14,6 +15,7 @@ describe('Endpoint de Devolver Libro', () => {
     it('debería devolver un mensaje de error si el libro no está prestado por el usuario', async () => {
         const response = await request(app)
             .post('/v1/user/devolver-libro')
+            .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`)
             .send({ libroId: 3, usuarioId: 1 });
 
         expect(response.status).toBe(400);
@@ -24,6 +26,7 @@ describe('Endpoint de Devolver Libro', () => {
     it('debería devolver un mensaje de error si el libro no existe', async () => {
         const response = await request(app)
             .post('/v1/user/devolver-libro')
+            .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`)
             .send({ libroId: 999, usuarioId: 1 });
 
         expect(response.status).toBe(400);
@@ -34,6 +37,7 @@ describe('Endpoint de Devolver Libro', () => {
     it('debería devolver un mensaje de error si falta el ID del libro', async () => {
         const response = await request(app)
             .post('/v1/user/devolver-libro')
+            .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`)
             .send({ usuarioId: 1 });
 
         expect(response.status).toBe(400);
@@ -42,6 +46,7 @@ describe('Endpoint de Devolver Libro', () => {
     it('debería devolver un mensaje de error si falta el ID del usuario', async () => {
         const response = await request(app)
             .post('/v1/user/devolver-libro')
+            .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`)
             .send({ libroId: 3 });
 
         expect(response.status).toBe(400);

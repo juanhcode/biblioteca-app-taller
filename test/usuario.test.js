@@ -1,10 +1,11 @@
 const request = require('supertest');
 const app = require('../index');
-
+require('dotenv').config();
 describe('API de Usuario', () => {
   it('debería buscar libros por título', async () => {
     const response = await request(app)
-      .get('/v1/user/find?titulo=V de vendetta');
+      .get('/v1/user/find?titulo=V de vendetta')
+      .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`);
 
     expect(response.status).toBe(200);
     expect(response.body.libro).toHaveLength(1);
@@ -12,7 +13,8 @@ describe('API de Usuario', () => {
 
   it('debería buscar libros por autor', async () => {
     const response = await request(app)
-      .get('/v1/user/find?autor=Alan Moore');
+      .get('/v1/user/find?autor=Alan Moore')
+      .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`);
 
     expect(response.status).toBe(200);
     expect(response.body.libro).toHaveLength(1);
@@ -20,7 +22,8 @@ describe('API de Usuario', () => {
 
   it('debería buscar libros por título y autor', async () => {
     const response = await request(app)
-      .get('/v1/user/find?autor=Alan Moore&titulo=V de vendetta');
+      .get('/v1/user/find?autor=Alan Moore&titulo=V de vendetta')
+      .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`);
 
     expect(response.status).toBe(200);
     expect(response.body.libro).toHaveLength(1); // Asegura que se encontró al menos un libro
@@ -28,7 +31,8 @@ describe('API de Usuario', () => {
 
   it('debería recibir un mensaje de error si no se proporcionan parámetros de búsqueda', async () => {
     const response = await request(app)
-      .get('/v1/user/find');
+      .get('/v1/user/find')
+      .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`);
       console.log(response.body);
     expect(response.status).toBe(400);
     expect(response.body.message).toBe('Debes proporcionar al menos un parámetro de búsqueda (titulo o autor)');
@@ -43,7 +47,8 @@ describe('API de Usuario', () => {
     }));
 
     const response = await request(app)
-      .get('/v1/user/find?titulo=El%20nombre%20del%20viento');
+      .get('/v1/user/find?titulo=El%20nombre%20del%20viento')
+      .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`);
 
     expect(response.status).toBe(500);
     expect(response.body.message).toBe('Error al buscar libros');
