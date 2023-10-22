@@ -1,11 +1,11 @@
 const app = require('../index');
 const request = require('supertest');
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJub21icmVfdXN1YXJpbyI6InVzdWFyaW8yIiwiaWF0IjoxNjk3OTQ4NDIxLCJleHAiOjE2OTc5NzAwMjF9.Ui0U-x-j-9KluJHwP5B1MPzTslW3_Jm_WCe50-LYAGU'
+require('dotenv').config();
 describe('Pruebas para agregar y eliminar libros', () => {
     it('Debería agregar un libro', async () => {
         const response = await request(app)
             .post('/v1/libro')
-            .set('Authorization', `Bearer ${token}`)
+            .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`)
             .send({titulo:"Libro 2",autor:"Juan Hoyossss Contreras"});
         expect(response.status).toBe(200);
     });
@@ -13,7 +13,7 @@ describe('Pruebas para agregar y eliminar libros', () => {
         const id = 47;
         const response = await request(app)
             .delete(`/v1/libro/${id}`)
-            .set('Authorization', `Bearer ${token}`)
+            .set('Authorization', `Bearer ${process.env.TOKEN_TEST}`)
         expect(response.status).toBe(200);
         expect(response.body.msg).toBe(`Libro con el id ${id} ha sido eliminado.`);
     });

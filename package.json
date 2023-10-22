@@ -4,14 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:dev": "node src/server.js",
+    "test:dev": "jest --coverage",
     "test": "jest",
     "dev": "nodemon index.js",
     "start": "node index.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testResultsProcessor": "jest-sonar-reporter"
+  },
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "test-reporter.xml",
+    "indent": 2
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/jest": "^29.5.6",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -25,8 +40,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "jest-html-reporter": "^3.10.2",
-    "jest-html-reporters": "^3.1.4",
+    "jest-sonar-reporter": "^2.0.0",
     "supertest": "^6.3.3"
   }
 }
