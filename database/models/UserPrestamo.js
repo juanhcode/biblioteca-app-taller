@@ -30,11 +30,13 @@ const UserPrestamo = db.define('usuario_prestamo',{
             model: Libro,
             key: 'id_libro'
         }
-    },
-    timestamps: false,
-    freezeTableName: true,
-    tableName: 'usuario_prestamo'
-})
+    }},
+    {
+        timestamps: false,
+        freezeTableName: true,
+    }
+
+)
 
 
 UserPrestamo.belongsTo(User,{foreignKey: 'id_usuario'});

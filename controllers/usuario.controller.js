@@ -1,20 +1,35 @@
 const usuarioService = require('../services/usuario.service');
 
-const buscarLibros = async(req,res)=>{
+
+const buscarLibros = async (req, res) => {
     const { titulo, autor } = req.query;
     const data = {
         titulo,
-        author:autor,
+        autor,
     }
     const libro = await usuarioService.buscarLibro(data);
-    console.log(libro);
     try {
-        res.json(libro);
+        res.status(libro?.code).json(libro);
     } catch (error) {
-        res.json(libro);
+        res.status(libro?.code).json(libro);
     }
 }
 
-module.exports={
+const prestarLibro = async (req, res) => {
+    const { libroId, usuarioId } = req.body;
+    const data = {
+        libroId,
+        usuarioId,
+    }
+    const resultado = await usuarioService.prestarLibro(data);
+    try {     
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al prestar el libro' });
+    }
+}
+
+module.exports = {
     buscarLibros,
+    prestarLibro
 }

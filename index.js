@@ -21,8 +21,7 @@ app.use('/v1/login', auth)
 
 
 async function main() {
-    try {
-        console.log('Database online');    
+    try {   
         app.listen(process.env.PORT || 3030,()=>{
                 console.log("Server running in port " + process.env.PORT);
             })
@@ -32,3 +31,4 @@ async function main() {
 }
  
 main();
+module.exports=app

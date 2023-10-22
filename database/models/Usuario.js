@@ -1,21 +1,20 @@
 const { DataTypes } = require('sequelize');
 const db = require('../connection');
 const Rol = require('./Rol');
-
-const Usuario = db.define('usuario',{
-    id_usuario:{
-        type:DataTypes.INTEGER,
+const Usuario = db.define('usuario', {
+    id_usuario: {
+        type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey:true
+        primaryKey: true
     },
     nombre_usuario: {
         type: DataTypes.STRING
     },
-    nombres:{
-        type:DataTypes.STRING
+    nombres: {
+        type: DataTypes.STRING
     },
-    apellidos:{
-        type:DataTypes.STRING
+    apellidos: {
+        type: DataTypes.STRING
     },
     contrasenia: {
         type: DataTypes.STRING
@@ -29,14 +28,16 @@ const Usuario = db.define('usuario',{
     },
 }, {
     timestamps: false,
-    freezeTableName: true
+    freezeTableName: true,
 });
 
-Usuario.prototype.toJson = function(){
-    let values = Object.assign({},this.get());
+Usuario.prototype.toJson = function () {
+    let values = Object.assign({}, this.get());
     delete values.contrasenia;
     return values;
 }
 
-Usuario.belongsTo(Rol,{foreignKey: 'id_rol'});
-module.exports= Usuario
+
+
+User.belongsTo(Rol, { foreignKey: 'id_rol' });
+module.exports = User
