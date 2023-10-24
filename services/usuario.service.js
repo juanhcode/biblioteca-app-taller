@@ -1,6 +1,16 @@
 const Libro = require('../database/models/Libro');
 const UsuarioPrestamo = require('../database/models/UserPrestamo')
 const Usuario = require('../database/models/Usuario');
+const bcrypt = require('bcrypt');
+
+const createUsuario = async (newUsuario)=> {
+    const usuarioCreated = new Usuario(newUsuario);
+    const salt = bcrypt.genSaltSync();
+    usuarioCreated.contrasenia = bcrypt.hashSync(newUsuario.contrasenia, salt);
+    await usuarioCreated.save();
+    return usuarioCreated;
+}
+
 
 const buscarLibro = async (data) => {
     const { autor, titulo } = data;
@@ -127,6 +137,7 @@ const devolverLibro = async (data) => {
 }
 
 module.exports = {
+    createUsuario,
     buscarLibro,
     prestarLibro,
     validacionNombreUsuario,
