@@ -11,7 +11,6 @@ describe('Pruebas de inicio de sesión', () => {
             })
 
         expect(response.status).toBe(200);
-        //expect(response.body.message).toBe('Acceso permitido');
     });
     it('Debería fallar el inicio de sesión con credenciales incorrectas', async () => {
         const response = await request(app)

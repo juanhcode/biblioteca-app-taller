@@ -8,14 +8,14 @@ describe('Pruebas de registro de usuario', () => {
     const response = await request(app)
     .post('/v1/user')
     .send({
-      nombre_usuario: "usuario6",
-      nombres: "usuario6",
-      apellidos: "usuario66",
+      nombre_usuario: "usuario8",
+      nombres: "usuario8",
+      apellidos: "usuario88",
       contrasenia: "1234",
       id_rol: 1
     })
     expect(response.status).toBe(201);
-    expect(response.body.msg).toBe('Usuario: usuario6 ha sido creado correctamente')
+    expect(response.body.msg).toBe('Usuario: usuario8 ha sido creado correctamente')
   })
 
   it('Deberia fallar el registro con un nombre de usuario repetido', async () => {
