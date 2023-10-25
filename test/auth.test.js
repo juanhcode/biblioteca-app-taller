@@ -11,7 +11,6 @@ describe('Pruebas de inicio de sesión', () => {
             })
 
         expect(response.status).toBe(200);
-        //expect(response.body.message).toBe('Acceso permitido');
     });
     it('Debería fallar el inicio de sesión con credenciales incorrectas', async () => {
         const response = await request(app)
@@ -53,6 +52,17 @@ describe('Pruebas de inicio de sesión', () => {
 
         expect(response.status).toBe(400);
         expect(response.body.msg).toBe('Falta información de inicio de sesión');
+    });
+    it('Debería fallar el inicio de sesión si se proporciona un SQL Injection en el nombre de usuario', async () => {
+        const response = await request(app)
+            .post('/v1/login')
+            .send({
+                nombre_usuario: "usuario1' or '1' = '1",
+                contrasenia: "1234"
+            });
+
+        expect(response.status).toBe(404);
+        expect(response.body.msg).toBe("No existe el usuario: usuario1' or '1' = '1");
     });
 
 })

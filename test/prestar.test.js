@@ -9,7 +9,7 @@ describe('Endpoint de Prestar Libro', () => {
     const response = await request(app)
       .post('/v1/user/prestar-libro')
       .set('Authorization', `Bearer ${token}`)
-      .send({ libroId: 29, usuarioId: 1,fechaDevolucion:"2023/10/29" });
+      .send({ libroId: 40, usuarioId: 1,fechaDevolucion:"2023/10/29" });
 
     expect(response.body.code).toBe(200);
     expect(response.body.message).toBe('El libro se ha prestado exitosamente');
@@ -19,7 +19,7 @@ describe('Endpoint de Prestar Libro', () => {
     const response = await request(app)
       .post('/v1/user/prestar-libro')
       .set('Authorization', `Bearer ${token}`)
-      .send({ libroId: 3, usuarioId: 1,fechaDevolucion:"2023/10/31" });
+      .send({ libroId: 29, usuarioId: 1,fechaDevolucion:"2023/10/31" });
 
     expect(response.body.code).toBe(400);
     expect(response.body.message).toBe('El libro no está disponible para préstamo');

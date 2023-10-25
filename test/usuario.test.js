@@ -3,6 +3,56 @@ const app = require('../index');
 require('dotenv').config();
 const token = process.env.TOKEN_TEST
 
+describe('Pruebas de registro de usuario', () => {
+  it('Deberia registrarse con el formulario completo', async () => {
+    const response = await request(app)
+    .post('/v1/user')
+    .send({
+      nombre_usuario: "usuario8",
+      nombres: "usuario8",
+      apellidos: "usuario88",
+      contrasenia: "1234",
+      id_rol: 1
+    })
+    expect(response.status).toBe(201);
+    expect(response.body.msg).toBe('Usuario: usuario8 ha sido creado correctamente')
+  })
+
+  it('Deberia fallar el registro con un nombre de usuario repetido', async () => {
+    const response = await request(app)
+    .post('/v1/user')
+    .send({
+      nombre_usuario: "usuario3",
+      nombres: "usuario5",
+      apellidos: "usuario55",
+      contrasenia: "1234",
+      id_rol: 1
+    })
+    expect(response.status).toBe(400);
+    expect(response.body.msg).toBe('Ya existe un usuario con ese nombre de usuario: usuario3')
+  })
+
+  it('Deberia fallar el registro cuando falta por llenar un campo', async () => {
+    const response = await request(app)
+    .post('/v1/user')
+    .send({
+      nombre_usuario: "usuario3",
+    },
+    {},
+    {
+      nombre_usuario: "usuario3",
+      apellidos: "usuario55"
+    })
+    for (const campo in response.body) {
+      if (campo.startsWith('Falta el campo obligatorio: ')) {
+        const campoFaltante = campo.replace('Falta el campo obligatorio: ', '');
+        expect(response.status).toBe(400);
+        expect(campo).toBe(`Falta el campo obligatorio: ${campoFaltante}`);
+      }
+    }
+  })
+})
+
 describe('API de Usuario', () => {
   it('debería buscar libros por título', async () => {
     const response = await request(app)

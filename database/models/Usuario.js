@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../connection');
 const Rol = require('./Rol');
+
 const Usuario = db.define('usuario', {
     id_usuario: {
         type: DataTypes.INTEGER,
@@ -36,8 +37,6 @@ Usuario.prototype.toJson = function () {
     delete values.contrasenia;
     return values;
 }
-
-
 
 Usuario.belongsTo(Rol, { foreignKey: 'id_rol' });
 module.exports = Usuario

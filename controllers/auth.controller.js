@@ -2,6 +2,7 @@ const { tokenSign } = require('../helpers/generateToken');
 const usuarioService = require('../services/usuario.service');
 const bcrypt = require('bcrypt');
 
+
 const login = async (req, res) => {
     try { 
         const { nombre_usuario, contrasenia } = req.body;
